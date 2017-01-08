@@ -28,12 +28,12 @@ Thus, in all cases, $a=c$ and $b=d$, as was to be shown.
 
 \begin{defn}
 \label{Defn:_Components_of_ordered_pairs}
-Given an ordered pair $(a,b)$, we call $a$ the \textbf{first (or left) component} of the pair, and call $b$ the \textbf{second (or right) component}. This is well defined by \autoref{Thm:_Kuratowski_ordered_pair_is_ordered}.
+Given an ordered pair $(a,b)$, we call $a$ the \textbf{first (or left) component} of the pair, and call $b$ the \textbf{second (or right) component}. This is well defined by \autoref{Thm:_Kuratowski_ordered_pair_is_ordered}, as it shows that in general the two are distinct.
 \end{defn}
 
 \begin{thm}
 \label{Thm:_Product_Sets_Exist}
-Given any two sets $A, B$, their exists a set whose members are precisely all the ordered pairs with first component from $A$ and second component from $B$. 
+Given any two sets $A, B$, there exists a set whose members are precisely all the ordered pairs with first component from $A$ and second component from $B$. 
 \end{thm}
 
 \begin{prf}
@@ -42,5 +42,76 @@ We can use the Axiom Schema of Separation to obtain the set $P = \{(a, b)\in\mat
 
 \begin{defn}
 \label{Defn:_Product_Sets}
-Given sets $A, B$, we define their \textbf{Cartesian Product}\footnote{Named after \hyperref[RDescartes]{Ren\'{e} Descartes.}} $A\times B$ to be the set of all ordered pairs $(a, b)$, where $a\in A$ and $b\in B$.
+Given sets $A, B$, we define their \textbf{Cartesian product}\footnote{Named after \hyperref[RDescartes]{Ren\'{e} Descartes.}} $A\times B$ to be the set of all ordered pairs $(a, b)$, where $a\in A$ and $b\in B$.
+\end{defn}
+
+If we wish to take the Cartesian product of three or more sets, then we need to come up with some notion of what it means to have an ordered \enquote{$n$-tuple} of objects, such that the ordered $2$-tuple is simply the ordered pair. 
+
+There are several ways one could do this; we choose the following:
+
+\begin{defn}
+\label{Defn:_Ordered_n-tuples}
+Given sets $a, b, c$, we define the \textbf{ordered triple} $(a, b, c)$ to be the set $((a, b), c)$. That is, $(a, b, c)$ is the ordered pair with left element $(a, b)$ and right element $c$. 
+
+Similarly, we define the \textbf{ordered quadruple} $(a, b, c, d)$ of sets $a, b, c, d$ to be $((a, b, c), d)$ - i.e. $(((a, b), c), d)$ - and along similar lines define the \textbf{ordered $n$-tuple} $(a_1, a_2, \dots , a_n)$ of $n$ ($\geq 2$) sets.\footnote{Strictly speaking, as we have not yet covered recursion or induction, this is less of a definition and more of a recipe for creating definitions. This is similar to our recipe for giving names to the natural numbers. Rest assured that we will not actually use induction as proof until we have proven its validity.}
+\end{defn}
+
+This allows us to now define the Cartesian products of $n$ sets.
+
+\begin{defn}
+\label{Defn:_Product_of_n_sets}
+Given sets $A, B, C$, we define their \textbf{Cartesian product} $A\times B\times C$ to be the set $\{(a, b, c)\mid (a\in A) \land (b\in B)\land (c\in C)\}$. To see that this is a valid definition - i.e. that $A\times B\times C$ exists for all $A, B, C$ - note that in fact this set is simply $(A\times B)\times C$. 
+
+In a similar fashion, we shall define the Cartesian product $A_1\times A_2\times \cdots \times A_n$ of $n$ ($\geq 2$) sets.
+\end{defn}
+
+It is important to note that we do \emph{not} have associativity here - $(A\times B)\times C\neq A\times (B \times C)$, as the reader can check by expanding the definition of the ordered triple.
+
+This is not especially problematic, so long as we have an agreed upon notion of where we should put our parentheses. In fact, this is even less problematic than it appears, as there is a very clear and obvious way to \enquote{match up} all of the elements in $(A\times B)\times C$ with $A\times (B\times C)$.\footnote{We will see more of this in the section on \emph{universal properties}.} 
+
+\section{Relations, Equivalences, and Partitions}
+\label{--Sec:_Relations_Equivalences_and_Partitions}
+
+\begin{defn}
+\label{Defn_(n-ary)_Relation}
+
+A \textbf{relation} $R$ is a set of ordered pairs. We say that $R$ is a \textbf{binary relation} on sets $A$ and $B$ if and only if $R\subseteq A\times B$. If $A=B$ then we call $R$ a \textbf{(binary) relation on $A$}.
+
+We say that $R$ is an \textbf{$n$-ary relation} on the sets $A_1,\dots, A_n$ if and only if $R\subseteq A_1\times\cdots\times A_n$.
+
+We tend to write $xRy$ to mean that $(x, y)\in R$.
+\end{defn}
+
+\begin{example} 
+\label{Example:_Defining_less_than_on_N}
+We define the relation $<$ on $\omega$ to be the set of all $(n, m)\in \omega\times \omega$ satisfying $n\in m$. Note that under this relation we have $0<1$, $0<2$, $1<2$, and so on. We also have $x\nless x$ for any $x$.
+\end{example}
+
+\begin{example} 
+\label{Example:_identity_relation}
+For any set $A$, we can define the relation $Id_A=\{(a_1, a_2)\in A\times A\mid a_1 = a_2\}$ on $A$. This is often called the \textbf{identity relation} on $A$. We might even write this relation as $=$, so that $a=a\liff a=a$ for any $a$.
+\end{example}
+
+\begin{thm}
+\label{Thm:_Domains_and_Images_of_relations}
+Given a relation $R$, there exists sets $D, M$ satisfying the following: 
+
+$$x\in D \liff (\exists y)[(x, y)\in R]$$ 
+
+$$x\in M \liff (\exists y)[(y, x)\in R]$$
+
+for all $x$. 
+\end{thm}
+
+\begin{prf}
+To be added XXXXXXXXX. 
+\end{prf}
+
+\begin{defn}
+\label{Defn:_Domains_and_Images_of_relations}
+Given a relation $R$, we define the \textbf{domain} $dom(R)$ of $R$ to be the set $D$ shown above of all left components of $R$.
+
+We define the \textbf{image} $im(R)$ of $R$ to be the set $M$ shown above of all right components of $R$. 
+
+We define the \textbf{field} of $R$ to be the set $dom(R)\cup im(R)$.
 \end{defn}
