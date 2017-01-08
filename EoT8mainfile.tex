@@ -1,0 +1,46 @@
+
+\documentclass[11pt, oneside]{book}
+\usepackage{EoTstyle}
+\usepackage{EoTfrontcover}
+
+%\includeonly{EoTintroduction}
+
+\begin{document}
+\newgeometry{}
+\begin{titlepage}
+\titleTMB
+%\BgThispage %This gives the background, the compile time increases dramatically if you enable it, though
+\end{titlepage}
+\restoregeometry
+
+%\blankpage ADD IF PRINTING
+
+\hypertarget{MyToc}{}
+\tableofcontents
+
+\include{EoT8introduction}
+
+
+\Mypart{Part 1} 
+\label{===PART:_1}
+
+\include{EoT8chapter1A}
+
+\Mypart{Part 2}
+\label{===PART:_2}
+
+\include{EoT8chapter2A}
+
+\Mypart{Appendices} 
+%\label{=== PART: Appendices}
+\renewcommand\thechapter{\Alph{chapter}}
+
+\include{EoT8biographies}
+
+\include{EoT8exercises}
+
+\include{EoT8answers}
+
+\include{EoT8bibliography}
+
+\end{document}
