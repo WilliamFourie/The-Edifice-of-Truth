@@ -1,0 +1,2 @@
+# The-Edifice-of-Truth
+A somewhat silly project I've been working on (on and off) for a while. The idea is to derive all of the mathematics I find interesting starting from some foundational system (I've chosen ZFC+U). I might add in stuff on other foundations, perhaps, but I'm not sure, yet. This is more of an organisational tool at the moment, for me to get an idea of the dependencies of various subjects off of one another.
