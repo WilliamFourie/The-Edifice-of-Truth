@@ -1,0 +1,151 @@
+\ProvidesPackage{EoTstyle}
+
+% Packages ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+
+\RequirePackage{amsmath} % mathematical symbols
+\RequirePackage{amsfonts} % more of the above
+\RequirePackage{amssymb} % more of the above
+\RequirePackage[thmmarks]{ntheorem} %theorem markers
+\RequirePackage{chngcntr} %resets chapters after a \part
+\RequirePackage{tocloft} % no clue what this does
+\RequirePackage[a4paper, left = 2.5cm, right = 6.6cm, bottom = 3cm]{geometry} %page formatting
+\RequirePackage{hyperref} % hyperlinks
+%\RequirePackage{sidenotes} % ...sidenotes
+\usepackage{chngcntr} % changes counter behaviours (i.e. reset per chapter or no)
+\usepackage[font={footnotesize}]{caption} % caption settings
+\RequirePackage{titlesec}      % customizing section titles
+\RequirePackage{titletoc} % no clue what this does
+\RequirePackage[T1]{fontenc} % no clue what this does
+\RequirePackage{lmodern} % no clue what this does
+\RequirePackage{url} % no clue what this does
+\RequirePackage[svgnames]{xcolor} % no clue what this does
+\RequirePackage{subcaption} % Allows for subfigures
+\RequirePackage{xtab}
+\RequirePackage[british]{babel}
+\RequirePackage{tabularx} % Easier fixed width tabulars
+\RequirePackage{csquotes} %FIXES THE QUOTATION MARKS!
+\RequirePackage{tikz} % figures, probably front cover
+\RequirePackage{enumitem} % makes it easier to customise enumerate lists
+\RequirePackage{blindtext} % FOR THE TOC LINKS
+\RequirePackage{eso-pic} % FOR THE TOC LINKS
+\RequirePackage{afterpage} % allows inserting balnk pages
+\RequirePackage{bussproofs} % Natural Deduction diagrams
+\RequirePackage{float} % force figure placement
+
+
+% For the placement of table of contents links on every page ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+
+\newif\iflinktoc 
+\linktoctrue%%% uncomment to show answers properly
+%\linktocfalse%%% comment to show answers properly
+
+\newcommand\AtPageUpperRight[1]{\AtPageUpperLeft{%
+  \put(\LenToUnit{\paperwidth},\LenToUnit{-0.3\paperheight}){#1}%
+}}%
+\newcommand\AtPageLowerRight[1]{\AtPageLowerLeft{%
+  \put(\LenToUnit{\paperwidth},\LenToUnit{0.3\paperheight}){#1}%
+}}%
+\newcommand{\addlinktotoc}{\footnotesize{\hyperlink{MyToc}{TOC}}}
+
+% For the correct numbering of the chapters  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+
+\counterwithin{chapter}{part}
+\setlength{\cftchapnumwidth}{3em}
+\renewcommand\thepart{\arabic{part}}
+\renewcommand\thechapter{\thepart\Alph{chapter}}
+
+% Get rid of numbers in Intro/Parts, and ToC links in part pages ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+
+\newcommand{\Mypart}[1]{ % Allows you to have 'Part 1' instead of '1. Part 1' 
+\newpage
+\ClearShipoutPicture % REMOVE LINK FOR PART PAGE
+\stepcounter{part}
+\addcontentsline{toc}{part}{#1}
+\part*{#1}
+\AddToShipoutPictureBG{
+      \AtPageUpperRight{\put(-575,172){\addlinktotoc}}
+      \AtPageLowerRight{\put(-575,-172){\addlinktotoc}} % ADD BACK IN FOR NEXT PAGES
+  }} 
+  
+\newcommand{\Intro}[1]{ % Allows you to have 'Introduction' instead of '0A: Introduction' 
+\addcontentsline{toc}{chapter}{#1}
+\chapter*{#1}
+\AddToShipoutPictureBG{
+      \AtPageUpperRight{\put(-575,172){\addlinktotoc}}
+      \AtPageLowerRight{\put(-575,-172){\addlinktotoc}}}
+} 
+
+% Sidenote commands ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+
+%\newcommand{\smsidenote}[1] {\sidenote{{\footnotesize #1} } } % some sidenote commands
+%\newcommand{\smsidenoteX}[1] {\sidenote[~]{{\footnotesize #1} } }
+%\newcommand{\smsidenoteXleft}[1]{\reversemarginpar \marginnote{{\footnotesize #1}} \normalmarginpar}
+%\newcommand{\smsidenotetext}[1]{\sidenotetext{\footnotesize{#1}}}
+
+% Theorem commands ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+
+%Take care when using the same label for two different things, you need a special counter package in that case.
+
+\theoremindent=1cm % Theorem/Defn/etc names
+\theoremheaderfont{\kern-1cm\normalfont\bfseries} 
+\theorembodyfont{\normalfont}
+\theoremseparator{.}
+\newtheorem{thm}{Theorem}[chapter]
+\providecommand*{\thmautorefname}{Theorem} % Autoref name
+\newtheorem{mnthm}[thm]{Proposition}
+\providecommand*{\mnthmautorefname}{Proposition} % Autoref name
+\theoremsymbol{$\Xi$}
+\newtheorem{defn}[thm]{Definition}
+\providecommand*{\defnautorefname}{Definition} % Autoref name
+\newtheorem{example}[thm]{Example}
+\providecommand*{\exampleautorefname}{Example} % Autoref name
+\theoremsymbol{}
+\newtheorem{convention}[thm]{Convention}
+\theoremstyle{nonumberplain}
+\theoremsymbol{OE$\Delta$}
+\newtheorem{prf}{Proof}
+
+\makeatletter
+\newtheoremstyle{MyNonumberplain}%
+  {\item[\theorem@headerfont\hskip\labelsep ##1\theorem@separator]}%
+  {\item[\theorem@headerfont\hskip\labelsep ##3\theorem@separator]}
+\makeatother
+\theoremstyle{MyNonumberplain}
+\theorembodyfont{\upshape}
+
+\theoremsymbol{$\Xi$}
+\theoremstyle{MyNonumberplain}
+\newtheorem{axm}{Axiom}
+
+% Miscellaneous settings ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+
+\marginparsep = 25pt %changing margin sizes for readability
+\marginparwidth = 140pt
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=NavyBlue,
+    urlcolor=black
+} %colouring hyperlinks
+
+\counterwithout{figure}{chapter} % stops figure number resetting
+
+\usetikzlibrary{shapes, backgrounds, patterns} %
+
+% Miscellaneous new commands ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+
+\newcommand{\homset}[3]{#2 \overset{_{#1}}{\to} #3} % hom set command
+\newcommand{\liff}{\Leftrightarrow} % Ease of typing
+\newcommand{\limp}{\Rightarrow} % Ditto
+\newcommand{\OED}{\hfill OE$\Delta$ \\} % Ditto again
+\newcommand{\setnot}{\,  \lnot \,} % Notation for set difference
+\newcommand{\pset}{\mathcal{P}}
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+

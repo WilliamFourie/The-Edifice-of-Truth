@@ -1,0 +1,861 @@
+\chapter{Zermelo-Fraenkel Set Theory}
+\label{Chpt: Zermelo-Fraenkel Set Theory}
+
+\section{Necessary Logical Prerequisites}
+\label{- Sec: Necessary Logical Prerequisites}
+
+\begin{defn}
+\label{Defn: Alphabet of ZFC+U}
+The \textbf{alphabet of ZFC+U} consists of the symbols $\forall$, $\exists$, $\land$, $\lor$, $\limp, \liff, \lnot, =$, and $\in$, together with parentheses - we will sometimes write square brackets in their place when it aids readability - commas, and variables - which are generally just lower case letters such as $x_1, x_2, \dots, y_1, y_2, \dots$ but we may use other letters to represent variables so long as we indicate explicitly or by context that that is what they are.
+
+The symbols $\forall$ and $\exists$ are known as the \textbf{universal and existential quantifiers}, respectively, and $\lor, \land, \liff, \limp$, and $\lnot$ are known as the \textbf{sentential connectives}. Together, these symbols form the \textbf{alphabet of first order logic}. We call $\land$ and $\lor$ the \textbf{disjunction} and \textbf{conjunction} symbols, respectively. We call $\limp$ and $\liff$ the \textbf{implication} and \textbf{logical equivalence} symbols. We call $\lnot$ the symbol of \textbf{negation}. 
+
+In informal use, we generally read $\forall$ as \enquote{for all}, $\exists$ as \enquote{there exists}, $\land$ as \enquote{and}, $\lor$ as \enquote{or}, $\limp$ as \enquote{implies}, $\liff$ as \enquote{if and only if}, and $\lnot$ as \enquote{it is not the case that}. Synonymous phrases are also allowable.
+
+As the reader should know, $=$ is the \textbf{equality} sign, and we tend to read $=$ as \enquote{equals}, or similar. The symbol $\in$ is known as the \textbf{membership} symbol, and generally one reads $\in$ as \enquote{is in} or \enquote{is a member of}, or similar. 
+\end{defn}
+
+\begin{defn}
+\label{Defn: Term}
+A \textbf{term} is a symbol which is either a variable or a constant - where constants are new symbols which may be added to our theory according to rules which will be given near the end of this section.\footnote{Some other first order theories such as Peano Arithmetic also start with several \emph{function symbols} - for example, the addition sign - and in those cases the application of a function symbol to a collection of terms is also a term. ZFC+U is capable of defining functions internally, however, so these are not needed.}
+\end{defn}
+
+\begin{defn}
+\label{Defn: Wffs}
+\textbf{Well formed formulas}, also known as wffs\footnote{We have decided to defer to the more commonly used term \enquote{formulas} as opposed to the more correct \enquote{formulae}. We shall, however, use \enquote{wffs} in favour of the more usual\enquote{wfs}.}, are certain expressions of the above symbols defined by the following rules:
+
+\begin{enumerate}
+\item If $t, s$ are terms, then $(t=s)$ and $(t\in s)$ are well-formed formulas. 
+
+\item If $\phi$, $\psi$ are wffs, then $(\phi\land\psi)$, $(\phi\lor\psi)$, $(\phi\limp\psi)$, $(\phi\liff\psi)$, and $(\lnot\phi)$ are also formulas. 
+
+\item If $\phi$ is a formula, and $x$ is a variable, then $((\forall x)\phi)$ and $((\exists x)\phi)$ are formulas. We say that $\phi$ is the \textbf{scope} of the quantifiers $(\forall x)$ and $(\exists x)$ in the above two expressions.
+
+\item No expression is a well-formed formula unless its being so follows from the above three rules. 
+\end{enumerate}
+
+We sometimes call wffs \enquote{propositions}, a word meaning \enquote{statements to be proved}.
+\end{defn}
+
+\begin{convention}
+\label{Conv: Logical Parentheses}
+If $\phi$ is a well-formed formula of the form $(\lnot\psi)$, where $\psi$ is some other wff, then we may omit the outer parentheses of $\phi$. 
+
+If $\phi, \psi, \beta, \gamma$ are wffs, and $\phi$ is of the form $(\psi\land\beta)$ or $(\psi\lor\beta)$,  then we may omit the outer parentheses of $\phi$ so long as it is not part of a larger expression of the form $\lnot(\phi)$, $(\phi\land\gamma)$, or $(\phi\lor\gamma)$. 
+
+If $x$ is a variable, and $\phi, \psi, \beta, \gamma$ are wffs, then if $\phi$ is of the form $((\exists x)\psi)$ or $((\forall x)\psi)$, then we may omit the outer parentheses of  $\phi$ when it is not part of a larger expression of the form $(\lnot\phi)$, $(\phi\land\gamma)$, or $(\phi\lor\gamma)$. 
+
+If $\phi, \psi, \beta$ are wffs, and $\phi$ is of the form $(\psi\limp\beta)$ or $(\psi\liff\beta)$, then we may omit the outer parentheses of $\phi$ so long as it is not part of some larger expression. 
+
+We say that $\lnot$ has \textbf{greater binding strength} than $\land$ and $\lor$, which have equal binding strength greater than that of any quantifier $(\forall x)$ or $(\exists x)$. Quantifiers all have equal binding strength greater than that of $\limp$ and $\liff$, which both have the weakest binding strength of any logical symbol.
+\end{convention}
+
+\begin{defn}
+\label{Defn: Bound and Free Occurrences}
+If $x$ is a variable, and $\beta$ is a formula, then we say that an \emph{occurrence} of $x$ in $\beta$ is \textbf{bound} in $\beta$ if and only if it is either an occurrence of $x$ lying in the scope of a quantifier $(\forall x)$ or $(\exists x)$, or if it occurs next to a quantifier. If an occurrence of $x$ is not bound, we say that it is \textbf{free}.
+\end{defn}
+
+\begin{defn}
+\label{Defn: Bound and Free Variables}
+A variable $x$ is said to itself be \textbf{bound} (resp. \textbf{free}) in a wff if it has a bound (resp. free) occurrence in that wff.\footnote{Note that if a variable does not occur in the formula then it is neither free nor bound, and if it occurs more than once it may be both free and bound.}
+\end{defn}
+
+\begin{defn}
+\label{Defn: Free for substitution}
+If $\beta$ is a wff, $t$ is a term, and $y$ is an individual variable, then we say that $t$ is \textbf{free for} $y$ \textbf{in} $\beta$ if and only if no free occurrence of $y$ in $\beta$ lies within the scope of a quantifier of the form $(\forall x_i)$, where $x_i$ is a variable occurring in $t$. 
+\end{defn}
+
+\begin{defn}
+\label{Defn: Substitution into a wff}
+Let $x_1, \dots, x_n$ be variables, let $\beta$ be a wff, and let $t_1, \dots, t_n$ be terms such that $t_i$ is free for $x_i$ in $\beta$ for each $i$. We shall write $\beta[t_1, \dots, t_n / x_1, \dots, x_n]$ to denote the wff obtained by substituting every free occurrence of $x_i$ in $\beta$ for $t_i$, for each $i$. 
+
+If all of the free variables of a wff $\beta$ occur in the list $x_1, \dots, x_n$,\footnote{This does not mean that any of the listed variables actually need be free, merely that no free variables occur outside the list. It need not necessarily even be the case that any of the $x_1, \dots, x_n$ occur in $\beta$.} then we may sometimes write $\beta$ as $\beta(x_1, \dots, x_n)$, and then write $\beta(t_1, \dots, t_n)$ to mean $\beta[t_1, \dots, t_n / x_1, \dots, x_n]$. 
+\end{defn}
+
+\begin{defn}
+\label{Defn: Sequents}
+We call $\vdash$ the \textbf{logical consequence} sign. If $\Gamma$ is an ordered list $\phi_1, \dots, \phi_n$ of wffs - where $n$ may be $0$ - and $\psi$ is a wff, then we informally read $\Gamma\vdash \phi$ as \enquote{$\phi$ is a logical consequence of $\Gamma$}. The expression $\Gamma\vdash\phi$ is called a \textbf{sequent},\footnote{The word is derived from the \emph{Sequent Calculus}, created by \hyperref[GGentzen]{Gerhard Gentzen (1909 - 1945)}, which is a close relative of the \emph{Natural Deduction Calculus} - also invented by Gentzen - which we are using now. Our meaning of \enquote{sequent} is slightly different from his, however, as Genzen allowed multiple formulas to be placed on the right, rather than just one. Our use is the same as that of \cite{HuthRyan2004}.} as is the symbol $\top$.
+\end{defn}
+
+\begin{defn}
+\label{Defn: Rules of Inference}
+If $\phi, \psi$, and $\gamma$ are wffs, $t$ is a term, $x, y$ are variables, and $\Gamma, \Delta$, and $\Phi$ are (finite) ordered lists of wffs, then the following diagrams are known as \textbf{rules of inference:}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+\item \textbf{Structural rules:}
+\begin{enumerate}
+\item Assumption:
+
+\begin{prooftree}
+\AxiomC{$\top$}
+\RightLabel{{\scriptsize $\mathsf{Asm}$}}
+\UnaryInfC{$\Gamma, \phi, \Delta\vdash \phi$}
+\end{prooftree}
+
+\item Weakening: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma\vdash\phi$}
+\RightLabel{{\scriptsize $\mathsf{Wkn}$}}
+\UnaryInfC{$\Gamma, \psi \vdash \phi$}
+\end{prooftree}
+
+\item Swapping: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma, \phi, \psi, \Delta \vdash\beta$}
+\RightLabel{{\scriptsize $\mathsf{Swp}$}}
+\UnaryInfC{$\Gamma, \psi, \phi, \Delta \vdash \beta$}
+\end{prooftree}
+
+\item Repetition Elimination: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma, \phi, \phi, \Delta \vdash\psi$}
+\RightLabel{{\scriptsize $\mathsf{Rep}\mathsf{-Elim}$}}
+\UnaryInfC{$\Gamma, \phi, \Delta \vdash \psi$}
+\end{prooftree}
+\end{enumerate}
+
+\item \textbf{Axiom rule} 
+\begin{enumerate}
+\item If $\phi$ has been designated as an \textbf{axiom} - we shall soon designate some formulas as axioms - then: 
+
+\begin{prooftree}
+\AxiomC{$\top$}
+\RightLabel{{\scriptsize $\mathsf{Axiom}$}}
+\UnaryInfC{$\vdash\phi$}
+\end{prooftree}
+
+\end{enumerate}
+
+\item \textbf{Conjunction rules}: 
+
+\begin{enumerate}
+\item Introduction: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash\phi$}
+\AxiomC{$\Delta \vdash \psi$}
+\RightLabel{{\scriptsize $\land\mathsf{-Intro}$}}
+\BinaryInfC{$\Gamma, \Delta \vdash \phi\land\psi$}
+\end{prooftree}
+
+\item Elimination left: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash\phi\land\psi$}
+\RightLabel{{\scriptsize $\land \mathsf{-Elim_L}$}}
+\UnaryInfC{$\Gamma\vdash\phi$}
+\end{prooftree} 
+
+\item Elimination right: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash\phi\land\psi$}
+\RightLabel{{\scriptsize $\land \mathsf{-Elim_R}$}}
+\UnaryInfC{$\Gamma\vdash\psi$}
+\end{prooftree}
+\end{enumerate}
+
+\item \textbf{Implication rules:}
+
+\begin{enumerate}
+\item Introduction: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma, \phi \vdash \psi$}
+\RightLabel{{\scriptsize $\limp\mathsf{-Intro}$}}
+\UnaryInfC{$\Gamma\vdash\phi\limp\psi$}
+\end{prooftree}
+
+\item Elimination: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash\phi\limp\psi$}
+\AxiomC{$\Delta\vdash\phi$}
+\RightLabel{{\scriptsize $\limp\mathsf{-Elim}$}}
+\BinaryInfC{$\Gamma, \Delta\vdash\psi$}
+\end{prooftree}
+\end{enumerate}
+
+\item \textbf{Disjunction Rules}
+\begin{enumerate}
+\item Introduction left: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash\phi$}
+\RightLabel{{\scriptsize $\lor\mathsf{-Intro_L}$}}
+\UnaryInfC{$\Gamma\vdash\phi\lor\psi$}
+\end{prooftree}
+
+\item Introduction right:
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash\psi$}
+\RightLabel{{\scriptsize $\lor\mathsf{-Intro_R}$}}
+\UnaryInfC{$\Gamma\vdash\phi\lor\psi$}
+\end{prooftree}
+
+\item Elimination: 
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash\phi\lor\psi$}
+\AxiomC{$\Delta, \phi \vdash\gamma$}
+\AxiomC{$\Phi, \psi\vdash\gamma$}
+\RightLabel{{\scriptsize $\lor\mathsf{-Elim}$}}
+\TrinaryInfC{$\Gamma, \Delta, \Phi \vdash\gamma$}
+\end{prooftree}
+\end{enumerate}
+
+\item \textbf{Negation rules:}
+\begin{enumerate}
+\item Introduction: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma, \phi \vdash\psi\lor\lnot\psi$}
+\RightLabel{{\scriptsize $\lnot\mathsf{-Intro}$}}
+\UnaryInfC{$\Gamma\vdash\lnot\phi$}
+\end{prooftree}
+
+\item Elimination: \footnote{This rule is sometimes called \emph{The Law of Double Negation}. Some other systems of logic, such as ?'s \emph{intuistionistic} logic, do not use this rule.}
+
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash\lnot\lnot\phi$}
+\RightLabel{{\scriptsize $\lnot\mathsf{-Elim}$}}
+\UnaryInfC{$\Gamma\vdash\phi$}
+\end{prooftree}
+\end{enumerate}
+
+\item \textbf{Equivalence rules:} 
+\begin{enumerate}
+\item Introduction:
+
+\begin{prooftree}
+\AxiomC{$\Gamma\vdash(\phi\limp\psi)\land(\psi\limp\phi)$}
+\RightLabel{{\scriptsize $\liff\mathsf{-Intro}$}}
+\UnaryInfC{$\Gamma\vdash\phi\liff\psi$}
+\end{prooftree}
+
+\item Elimination:
+
+\begin{prooftree}
+\AxiomC{$\Gamma\vdash\phi\liff\psi$}
+\RightLabel{{\scriptsize $\liff\mathsf{-Elim}$}}
+\UnaryInfC{$\Gamma\vdash(\phi\limp\psi)\land(\psi\limp\phi)$}
+\end{prooftree}
+\end{enumerate}
+
+\item \textbf{Existential Quantifier rules:}
+\begin{enumerate}
+\item (Introduction) If $t$ is free for $x$ in $\phi$, then: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma\vdash\phi[t/x]$}
+\RightLabel{{\scriptsize $\exists\mathsf{-Intro}$}}
+\UnaryInfC{$\Gamma\vdash (\exists x)\phi$}
+\end{prooftree}
+
+\item (Elimination) If $y$ is free for $x$ in $\phi$, and $y$ does not occur in $\psi$ or in any formula of $\Delta$, then: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma\vdash (\exists x)\phi$}
+\AxiomC{$\Delta, \phi[y/x] \vdash \psi$}
+\RightLabel{{\scriptsize $\exists\mathsf{-Elim}$}}
+\BinaryInfC{$\Gamma, \Delta\vdash \psi$}
+\end{prooftree}
+\end{enumerate}
+
+\item \textbf{Universal Quantifier rules: }
+\begin{enumerate}
+\item (Introduction) If $x$ does not occur freely in any formula of $\Gamma$, then: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma\vdash\phi$}
+\RightLabel{{\scriptsize $\forall\mathsf{-Intro}$}}
+\UnaryInfC{$\Gamma\vdash (\forall x)\phi$}
+\end{prooftree}
+
+\item (Elimination) If $t$ is free for $x$ in $\phi$, then: 
+
+\begin{prooftree}
+\AxiomC{$\Gamma\vdash (\forall x)\phi$}
+\RightLabel{{\scriptsize $\forall\mathsf{-Elim}$}}
+\UnaryInfC{$\Gamma\vdash\phi[t/x]$}
+\end{prooftree}
+\end{enumerate}
+\end{enumerate}
+
+A sequent $\Gamma\vdash\phi$ is said to \textbf{directly follow from} a collection of other sequents \emph{by virtue of a given rule of inference} if and only if an instance of that rule of inference has $\Gamma\vdash\phi$ as bottom sequent and has the others as top sequents. 
+
+A sequent is said to \textbf{follow from} a collection of others if and only if it either directly follows from them by virtue of some rule of inference, or it directly follows from another collection of sequents, and each member of that collection follows from the given one. 
+
+We say that a wff $\phi$ \textbf{follows from} a collection of sequents if and only if $\vdash\phi$ follows from that collection.
+
+If a sequent follows from $\top$ alone, then we say that that sequent is \textbf{valid}.
+\end{defn}
+
+\begin{defn}
+\label{Defn: Theorem, Logical Truth}
+If $\phi$ is a wff, then we say that $\phi$ is a \textbf{theorem} if and only if $\vdash\phi$ is valid. If no application of $\mathsf{Axiom}$ is needed to show this, then we call $\phi$ a \textbf{logical truth}.
+\end{defn}
+
+\begin{thm}
+\label{Thm: P implies P}
+If $\phi$ is a wff, then $\phi\limp\phi$. 
+\end{thm}
+\begin{prf}
+We draw a diagram to show that $\phi\limp\phi$ follows from $\top$, below:
+
+\begin{prooftree}
+\AxiomC{$\top$}
+\RightLabel{{\scriptsize $\mathsf{Asm}$}}
+\UnaryInfC{$\phi\vdash\phi$}
+\RightLabel{{\scriptsize $\limp\mathsf{-Intro}$}}
+\UnaryInfC{$\vdash\phi\limp\phi$}
+\end{prooftree}
+
+so demonstrating that $\phi\limp\phi$ is a theorem, and moreover is a logical truth.
+\end{prf}
+
+\begin{thm}
+\label{Thm: P and not P implies Q}
+If $\phi, \psi$ are wffs, then $\phi\land\lnot\phi\limp\psi$.
+\end{thm}
+\begin{prf}
+Again, we draw a diagram, this time a bit taller:
+
+\begin{prooftree}
+\AxiomC{$\top$}
+\RightLabel{{\scriptsize $\mathsf{Asm}$}}
+\UnaryInfC{$\phi\land\lnot\phi, \lnot\psi \vdash\phi\land\lnot\phi$}
+\RightLabel{{\scriptsize $\lnot\mathsf{-Intro}$}}
+\UnaryInfC{$\phi\land\lnot\phi\vdash\lnot\lnot\psi$}
+\RightLabel{{\scriptsize $\lnot\mathsf{-Elim}$}}
+\UnaryInfC{$\phi\land\lnot\phi\vdash\psi$}
+\RightLabel{{\scriptsize $\limp\mathsf{-Intro}$}}
+\UnaryInfC{$\vdash\phi\land\lnot\phi\limp\psi$}
+\end{prooftree}
+
+which shows the desired relationship.
+\end{prf}
+
+\begin{thm}
+\label{Thm: ((A-or B) and not B) implies A}
+If $\alpha, \beta$ are wffs, then $(\alpha\lor\beta)\land\lnot\beta\limp\alpha$.
+\end{thm}
+\begin{prf}
+Again we draw a diagram - this time showing that the given formula follows from $\top$ by showing that it follows from sequents which follow from $\top$ - below: 
+
+\def\defaultHypSeparation{\hskip.0001in}
+\begin{tiny}
+\begin{prooftree}
+
+\AxiomC{$\top$}
+\RightLabel{{\tiny $\mathsf{Asm}$}}
+\UnaryInfC{$(\alpha\lor\beta)\land\lnot\beta\vdash(\alpha\lor\beta)\land\lnot\beta$}
+\RightLabel{{\tiny $\land\mathsf{-Elim_L}$}}
+\UnaryInfC{$(\alpha\lor\beta)\land\lnot\beta\vdash\alpha\lor\beta$}
+
+\AxiomC{\hskip 60pt $\vdash\alpha\limp\alpha$}
+
+\AxiomC{$\top$}
+\RightLabel{{\tiny $\mathsf{Asm} \quad$}}
+\UnaryInfC{$\beta\vdash\beta$}
+
+\AxiomC{$\top$}
+\RightLabel{{\tiny $\mathsf{Asm}$}}
+\UnaryInfC{$(\alpha\lor\beta)\land\lnot\beta\vdash(\alpha\lor\beta)\land\lnot\beta$}
+\RightLabel{{\tiny $\land\mathsf{-Elim_R}$}}
+\UnaryInfC{$(\alpha\lor\beta)\land\lnot\beta\vdash\lnot\beta$}
+
+\RightLabel{{\tiny $\land\mathsf{-Intro}$}}
+\BinaryInfC{$\beta, (\alpha\lor\beta)\land\lnot\beta\vdash \beta\land\lnot\beta$}
+\RightLabel{{\tiny $\mathsf{Swp}$}}
+\UnaryInfC{$(\alpha\lor\beta)\land\lnot\beta, \beta\vdash \beta\land\lnot\beta$}
+
+\insertBetweenHyps{\hskip -55pt}
+
+\AxiomC{$\vdash \beta\land\lnot\beta\limp \alpha$}
+\RightLabel{{\tiny $\limp\mathsf{-Elim}$}}
+\BinaryInfC{$(\alpha\lor\beta)\land\lnot\beta, \beta\vdash \alpha$}
+\RightLabel{{\tiny $\limp\mathsf{-Intro}$}}
+\UnaryInfC{$(\alpha\lor\beta)\land\lnot\beta\vdash \beta\limp \alpha$}
+
+\insertBetweenHyps{\hskip -60pt}
+
+\RightLabel{{\tiny $\lor\mathsf{-Elim}$}}
+\TrinaryInfC{$(\alpha\lor\beta)\land\lnot\beta, (\alpha\lor\beta)\land\lnot\beta \vdash \alpha$}
+\RightLabel{{\tiny $\mathsf{Rep}\mathsf{-Elim}$}}
+\UnaryInfC{$(\alpha\lor\beta)\land\lnot\beta \vdash \alpha$}
+\RightLabel{{\tiny $\limp\mathsf{-Intro}$}}
+\UnaryInfC{$\vdash(\alpha\lor\beta)\land\lnot\beta \limp \alpha$}
+
+\end{prooftree}
+\end{tiny}
+As you can see, these diagrams can get quite large.
+\end{prf}
+
+From these rules and definitions one can derive any number of logical truths, and a great deal are given in the exercises for the reader to prove if they so wish.\footnote{I promise I will eventually add exercises.}
+
+From this point onwards, we will implicitly assume all of these truths, as well as several other obvious ones that we may have forgotten to put in the exercises. We will also, for the most part, avoid using the diagrammatic proofs of above in favour of the more usual informal style of argumentation.
+
+Later, we may return to formal logic, in order to study logical systems such as these from a more mathematical point of view, such as in \emph{model theory}, but for now we end this section by stating two more important definitions, as well as the Axioms of Equality.
+
+\begin{defn}
+\label{Defn: There Exists a Unique}
+
+If $\beta(x)$ is a well-formed formula, and $x$ is a variable, then we write $(\exists! x)\beta(x)$ as an abbreviation of the formula $(\exists x)[\beta(x) \land ((\exists y)\beta(y) \limp (x=y))]$. We read $(\exists! x)\beta(x)$ as \textbf{\enquote{there exists a unique $x$ such that $\beta(x)$}} and call $\exists!$ the \textbf{unique existential quantifier}. The unique existential quantifier has the same binding strength as the other quantifiers.
+\end{defn}
+
+\begin{defn}
+\label{Defn: Constants}
+If $\beta(x)$ is a well-formed formula, $x$ is a variable, and $(\exists! x)\beta(x)$ is a theorem, then the symbol $\iota x \beta(x)$ is called a \textbf{constant}.\footnote{Other theories may also start with a several \emph{undefined} constants, such as 0 in Peano Arithmetic, but ZFC+U does not need such things.} If $\iota x \beta(x)$ is a constant, then we take $\beta(\iota x \beta(x))$ as an axiom. We read $\iota x \beta(x)$ as \textbf{\enquote{the unique $x$ such that $\beta(x)$}}. One cannot omit the outer parentheses of $\beta$ in the expression $\iota x \beta$.
+\end{defn}
+
+\begin{axm}[Axioms of Equality]
+\label{Axiom: Equality}
+If $\beta$ is a well-formed formula, $x, y$ are variables such that $y$ is free for $x$ in $\beta$, and $\beta^\prime$ is the result of substituting some, but not necessarily all, of the occurrences of $x$ in $\beta$ for $y$, then the following wffs are known as \textbf{Axioms of Equality:}
+\begin{enumerate}
+\item $(\forall x)(x=x)$
+
+\item $(\forall x)(\forall y)((x=y)\limp(\beta\limp\beta^\prime))$
+\end{enumerate}
+
+As one might guess, we will take every one of the Axioms of Equality to be an axiom. The Axioms of Equality, together with those introduced by constants, are known as our \textbf{logical axioms} - this is to distinguish them from the \textbf{mathematical axioms}, which we will introduce in the next section. 
+
+We will implicitly assume many obvious properties of equality from now on, such as that $(x=y)\liff(y=x)$. The reader may prove such properties in the exercises, if they wish.
+\end{axm}
+
+\newpage
+
+\section{The Axioms of ZF Set Theory}
+\label{- Sec: The Axioms of ZF Set Theory}
+
+\begin{convention}
+\label{Conv: Everything is a set}
+We shall call terms of set theory - that is, every term encountered from now on\footnote{That is, every term encountered in every chapter which depends on this one, and every further term in this chapter.} \textbf{sets}. If $x, y$ are sets, then recall that we read $(x\in y)$ as \enquote{$x$ is a member of $y$} or \enquote{$x$ is an element of $y$} or similar. 
+\end{convention}
+
+\begin{defn}
+\label{Defn: Bounded Quantifiers}
+We introduce the following abbreviations: if $A$ is a set, $x$ is a variable, and $\beta$ is a formula, then we shall write $((\forall x\in A)\beta)$ to mean $((\forall x)[(x\in A) \limp \beta])$, and $((\exists x\in A)\beta)$ to mean $(\exists x)[(x\in A) \land \beta]$. We call these \textbf{bounded quantifiers}, and read the expressions above as \enquote{for all $x$ in $A$} and \enquote{there exists $x$ in $A$}, respectively. 
+
+Very similar examples, such as $(\exists ! x\in A)$, $(\forall x > y)$\footnote{When we have an appropriate definition of >.}, and so on will be used later without comment. It is to be hoped that the reader would be able to parse these expressions from context.
+
+We shall also in general decree that a diagonal slash in a symbol representing a relation between two objects should indicate negation, for example we will write $(x\neq y)$ to mean $\lnot(x=y)$ and $(x\notin y)$ for $\lnot(x\in y)$. The general meaning of \enquote{relation} shall be covered in a later chapter.
+\end{defn}
+
+Our first axiom shall set out precisely when we want two sets to be equal. As the reader would hopefully expect, we shall say that two sets are equal if and only if they have the exact same members.
+
+\begin{axm}[Axiom of Extensionality] 
+\label{Axiom: Extensionality} 
+We take the following formula to be an axiom: 
+
+\begin{displaymath}
+(\forall A)(\forall B)[(\forall x)(x\in A \liff x \in B) \limp (A=B)]
+\end{displaymath}
+
+We may read this as \enquote{for all sets $A$ and for all sets $B$, if for all $x$ we have that $x$ is in $A$ if and only if $x$ is in $B$, then $A = B$} or less formally \enquote{if two sets have exactly the same members, then they are equal}.
+\end{axm}
+
+\begin{convention}
+\label{Conv: Set Builder Notation}
+If $x$ is a variable and $\beta(x)$ is a formula, then instead of $\iota y ((\forall x)((x\in y)\liff\beta(x)))$ we will write $\{x \mid \beta(x)\}$. One may read this as \enquote{the set of all $x$ such that $\beta(x)$}. This is called \textbf{set builder notation}.
+\end{convention}
+
+\begin{thm}
+\label{Thm: Some trivial set builder equalities}
+If $x$ is a variable and $\beta(x), \gamma(x)$ are formulas such that $(\forall x)(\beta(x)\liff\gamma(x))$ - i.e. such that $(\forall x)(\beta(x) \liff \gamma(x))$ is a theorem - then if we have $(\exists! A)(\forall x)(x\in A \liff \beta(x))$ and $(\exists! B)(\forall x)(x\in B \liff \gamma(x))$, then $\{x \mid \beta(x)\} = \{x \mid \gamma(x)\}$. 
+
+Similarly, $\{ x \mid \beta(x)\} = \{y \mid \beta(y)\}$ if $y$ is some other variable.
+\end{thm}
+
+\begin{prf}
+If $z\in \{x \mid \beta(x)\}$, then $\beta(z)$, so as $\beta(z)\liff\gamma(z)$ we have $\gamma(z)$, so $z\in\{x\mid\gamma(x)\}$. Similarly, if $z\in\{x\mid\gamma(x)\}$, then $z\in\{x\mid\beta(x)\}$, so as $z$ was arbitrary we have the desired result from the Axiom of Extensionality. 
+
+Similarly, we have that both $z\in\{x\mid\beta(x)\}\liff\beta(z)$, and $z\in\{y\mid\beta(y)\}\liff\beta(y)$, so again by extensionality we have what was to be proved.
+\end{prf}
+
+Now, we might want to set as an axiom that $\{x\mid \beta(x)\}$ exists for any $\beta(x)$, so that we can easily obtain any set we desire.  Perhaps we could call this assumption something like the \emph{Axiom Schema of Comprehension}, where we say \enquote{schema} to mean a bundle of axioms - one for each formula, here. Unfortunately, as the following theorem shows, this sort of assumption leads only to ruin.
+
+\begin{thm}[Russell's Paradox\footnotemark] 
+\label{Thm: Russell's paradox}
+\footnotetext{Discovered by \hyperref[BRussell]{Bertrand Russell} in 1903.} The assumption that, if $\beta(x)$ is any formula, then $$(\exists B)(\forall x)(x\in B\liff\beta(x))$$ leads to a contradiction.
+\end{thm}
+
+\begin{prf}
+Take $\beta(x)$ to be the formula $x\notin x$, then we have by the assumption that $(\exists B)(\forall x)(x\in B\liff x\notin x)$, whence, by extensionality, $\{x\mid x\notin x\}$ is a set. Writing $R$ for $\{x\mid x\notin x\}$, we have $R\in R \liff R\notin R$,\footnote{We have omitted the parentheses around $R\in R$, and $R\notin R$ as it is clear what is meant.} which is of course impossible, giving us the desired contradiction. 
+\end{prf}
+
+We shall instead adopt a weaker axiom schema: 
+
+\begin{axm}[Axiom Schema of Separation] 
+\label{Axiom: Separation}
+For each formula $\beta(x)$ not containing the variable $B$, we shall take the following as an axiom:
+
+$$(\forall A)(\exists B)(\forall x)(x\in B \liff (x\in A)\land\beta(x))$$
+
+In other words, so long as $\beta$ does not contain $B$, we can form the set $\{x\mid (x\in A)\land\beta\}$ for any set $A$. We tend to write $\{x\in A\mid \beta\}$ instead of $\{x\mid (x\in A)\land\beta\}$, for convenience.
+\end{axm}
+
+\begin{defn}
+\label{Defn: Subsets}
+We write $A\subseteq B$ to mean $(\forall x)(x\in A\limp x\in B)$. If $A\subseteq B$, then we say that $A$ is a \textbf{subset} of $B$, that $A$ is \textbf{contained} in $B$, or similar. 
+
+We write $B\supseteq A$ to mean $A\subseteq B$, and in this case say that $B$ is a \textbf{superset} of $A$. We write $A\subset B$ to mean $(A\subseteq B) \land (A\neq B)$ and in this case call $A$ a \textbf{proper subset} of $B$.\footnote{Some authors write $\subset$ to mean $\subseteq$, and write $\subsetneq$ for $\subset$, so be aware of this when reading other texts. We prefer to have symmetry with the $\leq$ and $<$ signs.}
+\end{defn}
+
+\begin{thm}
+\label{Thm: Separation makes subsets} 
+If $\beta(x)$ is any suitable formula, and $A$ is any set, then $\{x\in A\mid \beta(x)\}\subseteq A$. 
+\end{thm}
+
+\begin{prf}
+This follows from the fact that $(x \in A)\land \beta(x)\limp x\in A$, for any $x$. 
+\end{prf}
+
+We now introduce three further axioms which allow us to build more sets we would like to have exist. 
+
+\begin{axm}[Axiom of the Empty Set]
+\label{Axiom: Empty Set} 
+There exists a set which does not have any elements. Symbolically: $$(\exists B)(\forall x)(x\notin B)$$ 
+We could have equivalently written this as $(\exists B)(\forall x)(x\notin B)$ so that it is clearer that extensionality gives unique existence. 
+\end{axm} 
+
+\begin{axm}[Axiom of Pairs] 
+\label{Axiom: Pairs}
+If $x, y$ are sets, then there exists a set $B$ containing $x$ and $y$ only as members. Symbolically, we take: $$(\forall x)(\forall y)(\exists B)(\forall z)(z\in B\liff (z=x)\lor (z=y))$$ as an axiom.
+\end{axm}
+
+\begin{axm}[Axiom of Power Sets] 
+\label{Axiom: Power Sets}
+For any set A, there exists a set $B$ whose members are precisely the subsets of $A$. Symbolically, we take: $$(\forall A)(\exists B)(\forall x)(x\in B \liff x\subseteq A)$$ as an axiom.
+\end{axm}
+
+Now, extensionality clearly gives unique existence for the sets specified above, so we may form the following accompanying definitions:
+
+\begin{defn}
+\label{Defn: Empty Set}
+We write $\varnothing$ for the \textbf{empty set}, that is, we write $\varnothing$ to mean the set $\{x\mid x\neq x\}$. 
+\end{defn}
+
+\begin{defn}
+\label{Defn: Pair Set}
+If $x, y$ are sets, then we write $\{x, y\}$ for the \textbf{pair set}\footnote{This is also known as a \textbf{doubleton}.} $\{z\mid (z=x)\lor(z=y)\}$; if $x=y$ then we write $\{x\}$ for $\{x, x\}$, and call $\{x\}$ a \textbf{singleton}. 
+\end{defn}
+
+\begin{defn}
+\label{Defn: Power Set}
+If $A$ is a set, then we write $\mathcal{P}(A)$ for the \textbf{power set} of $A$ - that is, for $\{x\mid x\subseteq A\}$.  
+\end{defn}
+
+It may be the case, on occasion, that we wish to combine several sets together in some way. Ideally, this would form a new set which has as members all those of the constituent sets. We could perhaps add as an axiom that $\{x\mid (x\in A)\lor (x\in B)\}$ exists for any sets $A, B$, but such an axiom would only allow us to combine finitely many sets - which is not sufficient for all that a mathematician may want to do. 
+
+The following axiom allows us to combine as many sets as we want, so long as we can gather them all as members of some other set:\footnote{It would be prudent at this point to note that membership is not generally transitive - i.e. if $x\in y$ and $y\in z$, then it is not necessarily the case that $x\in z$. For example, $\varnothing\in \{\varnothing\}$ and $\{\varnothing\}\in\{\{\varnothing\}\}$, but $\varnothing\notin\{\{\varnothing\}\}$.}
+
+\begin{axm}[Axiom of Unions]
+\label{Axiom: Unions}
+If $A$ is a set, then there exists a set $B$ consisting of precisely the members of the members of $A$. That is, symbolically, we take:  $$(\forall A)(\exists B)(\forall x)(x\in B \liff (\exists C)((x\in C)\land(C\in A))$$ as an axiom.
+\end{axm}
+
+As usual, extensionality allows us to make an accompanying definition: 
+
+\begin{defn}
+\label{Defn: Unions of Sets}
+If $A$ is a set, then we write $\bigcup A$ to mean the set $\{x\mid (\exists C\in A)(x\in C)\}$. Alternatively, we may write $\bigcup_{a\in A} a$ to mean the same thing. 
+
+We call $\bigcup A$ the \textbf{union} of all of the elements of $A$; in particular, if $A=\{x, y\}$ then we call $\bigcup A$ the \textbf{union of $x$ and $y$} and write $x\cup y$ for this set.
+\end{defn}
+
+\begin{defn}
+\label{Defn: Small finite sets}
+If $x, y, z$ are sets, then we define $\{x, y, z\}$ to be $\{x, y\}\cup\{z\}$, and similarly one can define four-sets $\{x, y, z,w\}$, five-sets $\{x, y, z, w, v\}$, and so on. If given $x_1, \dots, x_n$, we tend to write $x_1\cup\cdots \cup x_n$ for $\bigcup \{x_1, \dots, x_n\}$.
+\end{defn}
+
+Thus, the above, in principle, allows us to form the union of infinitely many sets, if we have an infinite set of sets. Unfortunately,\footnote{Unless you are a finitist, at least.} the axioms so far listed do not allow us to form an infinite set - where at this point we only use the word \enquote{infinite} intuitively. The following definition and axiom addresses this problem: 
+
+\begin{defn}
+\label{Defn: Inductive Set} 
+We say that a set $W$ is \textbf{inductive} if and only if $\varnothing\in W$ and, whenever $x\in W$, we have $x\cup\{x\}\in W$. 
+\end{defn}
+
+\begin{axm}[Axiom of Infinity] 
+\label{Axiom: Infinity} 
+There exists at least one inductive set. 
+\end{axm}
+
+The reader should see why an inductive set would meet most reasonable definitions of \enquote{infinite}.
+
+Note that the above does not assert the existence of a unique set, as many of the other axioms do. This makes sense, as one would not expect there to be a unique inductive set. Later, we will be able to use the above to construct an explicit inductive set.
+
+We finish off this section with the final two axioms of ZF set theory. They are somewhat harder to motivate than the others, but they are necessary for sets to work the way we want. The first states that if we can assign a set $A_i$ to every member $i$ of some set $I$, then we can form $\{A \mid (\exists i\in I)(A=A_i)\}$, and the second allows us to prove that there can be no circular chains of membership - i.e. we cannot have $x\in x$ or $x\in y \in x$, or similar.
+
+\begin{axm}[Axiom Schema of Replacement]
+\label{Axiom: Replacement} 
+If $\beta(x, y)$ is a formula which does not contain $B$ and is functional in $x$ - by which we mean that $(\forall x)(\forall y)(\forall z)(\beta(x, y)\land \beta(x, z)\limp (y=z))$ - then there exists a set B containing the \enquote{image} of any set $A$ under this formula - i.e. the set $\{y\mid(\exists x\in A)\beta(x, y)\}$. 
+
+More formally, if we write $fn(\beta)$ to mean \enquote{$\beta$ is functional}, then for any formula $\beta(x, y)$ not containing $B$, we take the following: $$(\forall A)(fn(\beta)\limp(\exists B)(\forall y)[(y\in B)\liff(\exists x\in A)\beta(x, y)])$$ as an axiom.
+\end{axm}
+
+\begin{axm}[Axiom of Regularity] 
+\label{Axiom: Regularity} 
+If $A$ is a set which is not $\varnothing$, then there exists a member of $A$ which does not share any members with $A$. Symbolically, we take: $$(\forall A)(A\neq \varnothing \limp (\exists a\in A)(\forall x)(x\in a\limp x\notin A))$$ as an axiom. 
+\end{axm}
+
+We recommend the reader try now to use the Axiom of Regularity to show that no set can be a member of itself, so that it becomes clearer why the axiom is stated as it is.
+
+\section{The Algebra of Sets}
+\label{--Sec:_The_Algebra_of_Sets}
+
+In this section we shall show how one can define various operations on sets, and how these operations interact both with each other, and with the subset relation. Most of the material here is not difficult to prove, and it is likely the reader knows these results already, so many proofs are left to the reader. 
+
+\begin{defn}
+\label{Defn:_Intersection_and_Complement}
+If $A, B$ are sets, then we write $A\cap B$ for the set $\{x\in A\mid x\in B\}$, and $A \setnot B$ for $\{x\in A\mid x\notin B\}$. These definitions are valid by the Axiom Schema of Separation. 
+
+$A\cap B$ is called the \textbf{intersection} of $A$ and $B$, and $A\setnot B$ is the \textbf{relative complement} of $B$ in $A$.
+\end{defn}
+
+We wold like to extend the above definition of intersection to arbitrary sets, in a similar way to how $\bigcup$ extends $\cup$. Thankfully, no new axioms are needed for this. 
+
+\begin{thm}
+\label{Thm:_Arbitrary_Intersections_are_well_defined}
+If $A$ is a \emph{non-empty} - i.e. not equal to $\varnothing$ - set, then there exists a set $B$ such that, for all $x$, $(x\in B)\liff(\forall a\in A)(x\in a)$.
+\end{thm}
+
+\begin{prf}
+As $A$ is non-empty, there exists some $c\in A$, whence the set $N = \{x\in c\mid (\forall a\in A)(x\in a)\}$ exists by the Axiom Schema of Separation. However, $(x\in c)\land(\forall a\in A)(x\in a)$ is equivalent to $(\forall a\in A)(x\in a)$, as $c\in A$, so $N$ is our desired set. 
+\end{prf}
+
+\begin{defn}
+If $A$ is a non-empty set, then we write $\bigcap A$ for the set $\{x\mid (\forall a\in A)(x\in a)\}$, and call $\bigcap A$ the \textbf{intersection of all the elements of $A$}. One may also write $\bigcap_{a\in A} a$ for $\bigcap A$.
+\end{defn}
+
+One might ask why we need the clause that $A$ is non-empty in the above. Simply put, this is because we cannot reasonably extend the notion of intersection over a set to $\varnothing$, because for any $x$ it is vacuously true that $x$ is a member of every member of $\varnothing$ - as $\varnothing$ has no members. 
+
+This would give $\bigcap \varnothing$ as being the set of all sets, which cannot exist as then we could use it together with the Axiom Schema of Separation to create Russell's paradox. Thus, we leave $\bigcap \varnothing$ undefined.
+
+We now list some elementary consequences of the above notions. 
+
+\begin{thm}
+\label{Thm:_Algebra_of_Sets_part_one}
+If $A, B, C$ are sets, then we have: 
+
+\begin{enumerate}[label=(\alph*)]
+\item $A\cup B = B\cup A$;
+\item $A\cap B = B\cap A$; 
+\item $A\cup (B\cup C) = (A\cup B)\cup C$;
+\item $A\cap (B\cap C) = (A\cap B)\cap C$; 
+\item $A\cap(B\cup C) = (A\cap B)\cup(A\cap C)$; 
+\item $A\cup (B\cap C) = (A \cup B)\cap (A\cup C)$; 
+\item $C\setnot (A\cup B) = (C\setnot A)\cap (C\setnot B)$; 
+\item $C\setnot (A\cap B) = (C\setnot A)\cup (C\setnot B)$.
+\end{enumerate}
+\end{thm}
+
+\begin{prf}
+These all follow from the logical truths that the reader proved in the exercises of 1A.1 (this implies that the exercises must be at the back and must be individual for each section, then). For example, we have: \\
+
+\begin{tabular}{lll}
+ $x\in C\setnot(A\cap B)$ & $\liff$ & $(x\in C)\land (x\notin (A\cap B))$ \\ 
+  & $\liff$ & $(x\in C)\land\lnot (x\in A \land x\in B)$ \\ 
+  & $\liff$ & $(x\in C)\land(x\notin A\lor x\notin B)$ \\
+  & $\liff$ & $[(x\in C)\land(x\notin A)]\lor[(x\in C)\land(x\notin B)]$ \\
+  & $\liff$ &  $(x\in C\setnot A)\lor (x\in C\setnot B)$ \\
+  & $\liff$ & $x\in (C\setnot A)\cup (C\setnot B)$
+\end{tabular} \\
+
+which proves (h).
+\end{prf}
+
+\begin{thm}
+\label{Thm:_Algebra_of_Sets_part_two}
+If $A, B, C$ are sets, then: 
+
+\begin{enumerate}[label = (\alph*)]
+\item $A\cup \varnothing = A$; 
+\item $A\cap \varnothing = \varnothing$; 
+\item $A\cap (B\setnot A) = \varnothing$; 
+\item $A\cup (B\setnot A) = A\cup B$.
+\end{enumerate}
+\end{thm}
+
+\begin{prf}
+Again, these are not difficult; $x\in A\cup \varnothing$ if and only if $x\in A$ or $x\in \varnothing$, but $x\notin\varnothing$, so this is equivalent to $x\in A$. The others are similar.
+\end{prf}
+
+\begin{thm}
+\label{Thm:_Algebra_of_Sets_part_three}
+If $A, B, C$ are sets, then: 
+
+\begin{enumerate}[label = (\alph*)]
+\item $A\subseteq B \limp A\cup C \subseteq B\cup C$; 
+\item $A\subseteq B \limp A\cap C \subseteq B\cap C$;
+\item $A\subseteq B \limp \bigcap A \subseteq \bigcap B$; 
+\item $A\subseteq B \limp (C\setnot B) \subseteq (C \setnot A)$;
+\item If $A\neq \varnothing$, then $A\subseteq B \limp \bigcap B \subseteq \bigcap A$;
+\end{enumerate}
+
+\end{thm}
+
+\begin{prf}
+These are all straightforward. For example, in (e), if $x\in \bigcap B$, then for all $b\in B$ we have $x\in B$, whence as $A\subseteq B$ we have for all $a\in A$ that $x\in a$, so $x\in\bigcap A$. As $x$ was arbitrary, this gives $A\neq \varnothing \limp (A\subseteq B \limp \bigcap B \subseteq \bigcap A).$  
+\end{prf}
+
+Now it is occasionally the case that we may wish to apply one of the above set operations to every element of a set at once, and form a new set out of the results. The below shows that this is possible.
+
+\begin{thm}
+\label{Thm:_Algebra_of_Sets_part_four}
+If $A, B$ are sets, then there exists $C$ (different potentially for each part) such that for all $x$: 
+
+\begin{enumerate}[label = (\alph*)]
+\item $x\in C \liff (\exists X\in B)(x=A\cap X)$; 
+\item $x\in C \liff (\exists X\in B)(x = A\cup X)$; 
+\item $x\in C \liff (\exists X\in B)(x = A\setnot X)$;
+\item $x\in C \liff (\exists X\in B)(x = \mathcal{P}(X))$.
+\end{enumerate}
+\end{thm}
+
+\begin{prf} Letting $X$ be some arbitrary element of $B$, we have: 
+
+\begin{enumerate}[label=(\alph*)]
+\item We know that $A\cap X\subseteq A$, so let $C$ be the subset of $\mathcal{P}(A)$ defined to be equal to $\{x\in \mathcal{P}(A)\mid (\exists X\in B)(x = A\cap X)\}$, which exists by the power set and separation axioms.
+
+\item We know that $A\cup X \subseteq A\cup (\bigcup B)$, so as before we can let $C = \{x\in\mathcal{P}(A\cup(\bigcup B))\mid(\exists X\in B)(x = A\cup X)\}$, which exists by the union, pairing, power set, and separation axioms. 
+
+\item This follows as in (a), noting that $A\setnot X \subseteq A$. 
+
+\item As $X\subseteq \bigcup B$, we know that $\mathcal{P}(X)\subseteq \mathcal{P}\mathcal{P}(\bigcup B)$, whence by the separation axioms we can form $$\{x\in \mathcal{P}\mathcal{P}(\bigcup B) \mid (\exists X\in B)(x=\pset (X)\}$$ and this is our desired $C$.
+\end{enumerate}
+\end{prf}
+
+\begin{defn}
+\label{Defn:_Algebra_of_Sets_part_four}
+Given sets $A, B$, we write  $\{A\cap X \mid X\in B\}, \linebreak \{A\cup X\mid X\in B\}, \{A\setnot B\mid X\in B\}$, and $\{\pset (X)\mid X\in B\}$ for the sets of the above theorem. We will write similar expressions $\{t(X)\mid X\in B\}$ for $\{x\mid (\exists X\in B)(x = t(X))\}$, where $t(X)$ is a term for each $X$, if we can prove the required existence theorems.\footnote{In practice, this is usually very tedious to do, and the results very obvious.}
+\end{defn}
+
+\begin{thm}
+If $A, B$ are sets, then we may extend the results of \autoref{Thm:_Algebra_of_Sets_part_one} as follows: 
+
+\begin{enumerate}[label = (\alph*)]
+\item If $B\neq \varnothing$, then $A\cup \bigcap B = \bigcap\{A\cup X\mid X\in B\}$;
+\item $A\cap \bigcup B = \bigcup\{A\cup X \mid X\in B\}$; 
+\item If $B\neq \varnothing$, then $A\setnot\bigcap B = \bigcup \{A\setnot X\mid X\in B\}$;
+\item If $B\neq \varnothing$, then $A\setnot\bigcup B = \bigcap \{A\setnot X\mid X\in B\}$.
+\end{enumerate}
+\end{thm}
+
+\begin{prf}
+\label{Thm:_Algebra_of_Sets_part_five}
+We prove (d), and leave the rest to the exercises. If $B\neq \varnothing$, then we have for any $x$: \\
+
+\begin{tabular}{lll}
+ $x\in A\setnot \bigcup B$ & $\liff$ & $(x\in A)\land (x\notin \bigcup B)$ \\ 
+  & $\liff$ & $(x\in A)\land\lnot(\exists b\in B)(x\in b)$ \\ 
+  & $\liff$ & $(x\in A)\land(\forall b\in B)(x\notin b)$ \\
+  & $\liff$ (!) & $(\forall b\in B)(x\in A\setnot b)$ \\
+  & $\liff$ &  $x\in \bigcap\{A\setnot X\mid X\in B\}$ \\
+\end{tabular} \\
+
+where the reverse implication of (!) only holds if $B$ is non-empty (why?). 
+\end{prf}
+
+\section{Further results}
+\label{--Sec:_Further_Results}
+
+In this final section, we shall list a few more results of interest that  one can deduce immediately from the axioms, such as that there can be no circular chains of membership. 
+
+First we shall construct an explicit inductive set, as promised earlier. 
+
+\begin{defn}
+\label{Defn:_0_1_2_etc}
+We will sometimes write $0$ to mean $\varnothing$, 1 to mean $0\cup\{0\}$, 2 to mean $1\cup\{1\}$, and so on.\footnote{We cannot explicitly say that we are using a base 10 representation, yet, but that is not necessary to use these symbols as labels.} We will of course call $0$ \textbf{zero}, $1$ \textbf{one}, and so on. 
+\end{defn}
+
+Note that, intuitively, each \enquote{$n$} here has $n$ elements. Later, we will in fact use the above to \emph{define} what it means for a set to \enquote{have $n$ elements}.
+
+\begin{defn}
+\label{Defn:_Natural_Number} 
+If $n$ is a set, then we say that $n$ is a \textbf{natural number} if and only if $n$ is a member of every inductive set. 
+\end{defn}
+
+\begin{example} 
+\label{Xmpl:_Natural_Numbers_are_Natural_Numbers} $0, 1, 2, 3, \dots$ are all natural numbers.
+\end{example}
+
+\begin{thm}
+\label{Thm:_Set_of_Natural_Numbers_Exists}
+There exists a set $N$ whose elements are precisely the natural numbers.
+\end{thm}
+
+\begin{prf}
+By the Axiom of Infinity, there exists at least one inductive set, say B, whence by the Axiom Schema of Separation we may form $\{x\in B\mid (\forall A)(A \mathrm{\; is \; inductive \;} \limp x\in A)\}$. Write $N$ for this set. We have, for any $n$, that: \\
+
+\begin{tabular}{lll}
+ $n\in N$ & $\liff$ & $n\in B$ and $n$ is a member of every inductive set\\ 
+  & $\liff$ & $n$ is a member of every inductive set \\ 
+  & $\liff$ & $n$ is a natural number \\
+\end{tabular} \\
+
+so that $N$ is the desired set.
+\end{prf}
+
+\begin{defn}
+\label{Defn:_omega}
+We write $\omega$ for the aforementioned set $N$, and for obvious reasons call it the \textbf{set of natural numbers}. 
+\end{defn}
+
+The reader may have been expecting us to write $\mathbb{N}$ for the above set, and that notation will also be used, but really $\mathbb{N}$ is more appropriately written to represent the algebraic structure consisting of the natural numbers.\footnote{By this, we mean the structure that will arise after we have defined addition and multiplication.} 
+
+It will turn out that there are many possible underlying sets for that structure; $\omega$ is used to indicate that the above set is in fact the first \emph{transfinite ordinal}. We will discuss ordinals in detail in later chapters.\footnote{Briefly, \emph{ordinals} are special sets which are well ordered - a term which will be formally defined in chapter ??? - by the $\in$ relation. $0, 1, 2, 3, \dots$ are all ordinals. Not only can the elements of each ordinal be well ordered by $\in$, but so can the (class of all) ordinals, and under that order, it happens that $\omega$ is the first \enquote{infinite} ordinal.}
+
+We now show that two of our axioms\footnote{In a sense, infinitely many.} are superfluous, and can actually be deduced as theorems from the others. 
+
+\begin{thm}
+\label{Thm:_Replacement_->_Separation}
+The Axiom Schema of Separation may be derived from the Axiom Schema of Replacement. 
+\end{thm}
+
+\begin{prf}
+Let $\beta (x)$ be some wff not containing the variable $B$. Let $\gamma (x,y)$ be the formula $\beta (x)\land(x=y)$. It should be clear that if $\gamma (x,y_1)$ and $\gamma(x, y_2)$, then $y_1=y_2$, so that $\gamma(x, y)$ is functional. 
+
+We can thus apply the Axiom Schema of Replacement to deduce: 
+$$(\forall A)(\exists B)(\forall y)[(y\in B)\liff (\exists x\in A)(\gamma(x, y))]$$ 
+which is equivalent to 
+$$(\forall A)(\exists B)(\forall y)[(y\in B)\liff ((y\in A)\land \beta(y)))]$$ so that we obtain the instance of the Axiom Schema of Separation given by $\beta(x)$. As $\beta(x)$ was arbitrary this gives the desired result. 
+\end{prf}
+
+\begin{thm}
+\label{Thm:_Powersets_and_Replacement_and_Emptyset_->_Pairs} The Axiom of Pairs is derivable from the Axiom of Power Sets, the Axiom of Extensionality, the Axiom of the Empty Set, and the Axiom Schema of Replacement. 
+\end{thm}
+
+\begin{prf}
+In the Axiom Schema of Replacement let $A$ be the set $\pset\pset(\varnothing)$, which exists by the Empty Set, Power Set, and Extensionality axioms. Let $x, y$ be any two sets. Let $\phi(u, v)$ be the formula $$(u = \varnothing \land v=x)\lor(u=\{\varnothing\}\land v=y)$$ which \enquote{sends} $\varnothing$ to $x$, and $\{\varnothing\}$ to $y$.
+
+It is clear that $\phi(u, v_1)\land\phi(u, v_2)\limp v_1 = v_2$ for any $v_1, v_2$, as only one of $u=\varnothing$ or $u=\{\varnothing\}$ must be true. 
+
+Thus, if one applies the Axiom Schema of Replacement to $A$ and $\phi(u, v)$, then they get: 
+$$(\exists B)(\forall z)(z\in B\liff (\exists a\in A)((a=\varnothing\land z=x)\lor(a=\{\varnothing\}\land z=y)))$$
+and so as there exists $a_1\in A$ such that $a=\varnothing$, and $a_2\in A$ such that $a=\{\varnothing\}$, we have that the above is equivalent to\footnote{We also need the fact that, in general, $(\exists x\in A)(\psi_1(x, y)\lor\psi_1(x, y))$ is equivalent to  $((\exists x\in A)\psi_1(x, y))\lor((\exists x\in A)\psi_2(x, y))$, but the reader has, of course, already shown this in the exercises.}
+$$(\exists B)(\forall z)(z\in B\liff (z=x)\lor(z=y))$$ so that $B$ is our desired pair set.
+\end{prf}
+
+Finally, we show that one cannot have any circular chains of membership in ZF, using the Axiom of Regularity. 
+
+\begin{thm}
+\label{Thm:_No_circular_membership_chains}
+If $a_1, \dots, a_n$ are sets, then it cannot be the case that $a_1\in a_2\in \dots \in a_n \in a_1$. 
+\end{thm}
+
+\begin{prf}
+If it were the case that $a_1\in \dots \in a_n\in a_1$, then - writing $a_{n+1}$ for $a_1$ if necessary - we have for every $a_j$ that $a_j\in\{a_1, \dots, a_n\}\cap a_{j+1}$. This contradicts the Axiom of Regularity, as that states that at least one of the $a_{j+1}$ must have an empty intersection with $\{a_1, \dots, a_n\}$, so in fact such circular membership chains cannot be.  
+\end{prf}
+
+In particular, though the reader already knows this, we cannot have $x\in x$ for any $x$, so if the Russell set $\{x\mid x\notin x\}$ did actually exist, then it would be the set of all sets. 
+
+This concludes this introduction to Zermelo-Fraenkel Set Theory. ZF suffices for most applications, but not all, and we will need to adopt two further axioms in later chapters in order to develop our theory fully. 
+
+These first of these assumptions is known as the \emph{Axiom of Choice}, which the reader will meet in \autoref{Chpt:_Relations_Orders_and_Maps} - this gives us the \enquote{default} working set theory known as ZFC. 
+
+The second assumption is called the \emph{Axiom of Universes}, and this will be necessary in later chapters on \emph{category theory}, which requires us to have some very large sets. 
+
+We may investigate further axioms in later chapters, but this will mostly be purely for the purpose of investigating their consequences, rather than for the purpose of developing a separate mathematical theory.

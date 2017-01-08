@@ -1,0 +1,53 @@
+\Intro{Introduction} 
+\label{+++ Chpt: Introduction}
+
+[This introduction is a work in progress and a place holder. It may or may not be used in the final document.] 
+[Current tips: change the tone a bit and stop using bold face when you are not defining things.]
+
+This is a book about mathematics. In a lazier world, that alone might suffice for an introduction, but in this world perhaps a bit more is required.
+
+The purpose of this book, this project, is to try to build up as much of mathematics as possible, starting from the subject's foundations. Why on earth would one want to do this? Well, simply, in order to explain things. 
+
+One day, when meeting with friends, I'd tried to explain the topic of Galois theory to them.\footnote{This sort of thing was a regular occurrence at the time, and I can still be a bit insufferable on occasion.} Galois theory is a beautiful interplay between the theories of groups and fields, two types of mathematical structures that are often encountered at higher levels.
+
+At the time, these friends did not know what groups were, nor fields, so I tried my best to explain those to them. It took several lunches in front of a whiteboard, and more than a little hand waving at times, but, in the end, I feel as though I got some of the message across. Through it all, I really would have liked to have done better. 
+
+This is my attempt to do better.
+
+Originally, Galois Theory was to be the central aim of this project. This would be a very focused text, drilling a hole through the lemmas, definitions, and theorems to explain what the Galois correspondence\footnote{The basic result of Galois theory.} is, exactly, and impart some understanding of why this is so important. 
+
+Originally, the project was to start merely from naive set theory - where one only uses intuitive understandings of the terms \enquote{set} and \enquote{collection} - together with \enquote{obvious} properties of numbers which needed no exposition. 
+
+Over time, the aims got broader, and the foundations got deeper, until eventually we ended up with what you see before you. 
+
+The hope is that this text will allow any reader of modest ability to learn any topic in mathematics, without relying on any vague prerequisites. This text is intended to be almost entirely self-contained, so as to be especially suitable for autodidacts. One need only skim over the chapters on logic and set theory if they wish, as they are there for completeness. They are not intended to be a wall barring the less avid readers from entry. 
+
+The sheer breath of scope that this project has obtained necessitates a somewhat unusual chapter layout. The book is divided into several numbered \textbf{parts}, and within each part, there are \textbf{chapters}. Chapters within a part depend only on chapters from earlier parts, and not from chapters within the same or later parts. At the beginning of each chapter (apart from the first) the prerequisites are made clear. 
+
+It would be folly to try to read this text \enquote{from cover to cover}, and far better to simply choose a topic, and go through the dependencies to get towards it. A graph of which chapters depend on which is provided. [WIP at present]
+
+One could, in principle, follow the original path towards Galois theory, without stopping to see the sights along the way, for example.
+
+The strictly hierarchical nature of this project is why is has been given the name it has. On display here is a towering edifice of \textbf{theorems}, \textbf{definitions}, \textbf{propositions}, \textbf{lemmas}, \textbf{corollaries}, and more, all starting from a small set of \textbf{axioms}.\footnote{Briefly, an axiom is a statement we assume to be true. A theorem is a statement that we can logically prove is true, given a set of axioms. Propositions, lemmas, and corollaries are just terms for different sorts of theorem - propositions are \enquote{minor theorems}, lemmas are technical results used to prove more important theorems, and corollaries are theorems that immediately follow from others.}  In short, this is a towering edifice of truth. 
+
+The inspiration for what this text has become is an ancient textbook dating from the classical era, when Greek geometry dominated European mathematics. Around ???bce, a scholar by the name of \hyperref[Euclid]{Euclid}, from the city of Alexandria, authored a set of volumes which came to be known as \textit{The Elements}. 
+
+\textit{The Elements} was astoundingly successful, and in the twenty three centuries since it was written, only The Bible has gone through more editions. \textit{The Elements}, more than any other book, established that mathematics is about \textbf{proof}. 
+
+What set this work apart from the innumerable other mathematics scrolls which must have been written then or since was Euclid's strict adherence to what we now call the \textbf{axiomatic method}.
+
+In an axiomatic method, rather than attempt to make deduction from evidence, one simply states a set of assumptions, or \textit{axioms}, and then proceeds to logically deduce other truths that follow from those axioms. Some of Euclid's assumptions were, for example, that one may extend any finite straight line indefinitely, that one may draw a circle with any center and radius, and that, given a straight line $L_1$ and a point $P$ not on $L_1$, there is exactly one line $L_2$ through $P$ which does not intersect with $L_1$.\footnote{This axioms in particular is known as the \textbf{parallel postulate}. Many mathematicians since Euclid believed, but could not prove, that the parallel postulate could in fact be proved from the other assumptions. As it turned out, this was not the case, as the \textbf{non-Euclidean} geometries discovered by \hyperref[CGauss]{Gauss}, \hyperref[JBolyai]{Bolyai}, and \hyperref[NLobachevsky]{Lobachevsky} demonstrated.} 
+
+The axiomatic method allows one to systematically build up a body of knowledge without needing later modification, as opposed to the scientific method, which must by its very nature constantly change. The theorems Euclid proved so long ago are still correct.\footnote{His results are still correct - save the fact that he used a few assumptions he didn't write down - but we use different axioms, now, so some of his theorems have turned into definitions, such as the Pythagorean theorem turning into the definition of distance.}
+
+Since the classical period, mathematical rigour has waxed and waned - most notably being almost absent during the time of Newton, when the subject of calculus was plagued with unjustified infinitesimals and infinities - but it was only in the nineteenth and twentieth centuries that the foundations of mathematics as we know them today were created. At the time of writing, it is possible to derive almost all of modern mathematics from a set of axioms known as ZFC\footnote{ZFC is an abbreviation for \textbf{Zermelo-Fraenkel with the Axiom of Choice}. The axioms were named after \hyperref[EZermelo]{Ernst Zermelo}, and \hyperref[AFraenkel]{Abraham Fraenkel}. }, with a few augmentations, on occasion.
+
+In this text, we shall try not to forget the history of the subject - as glimpsed at, above. The majority of historical notes shall be relegated to biographies given at the end of the book, and introductions to chapters, but a lot of references are still made in the main text and in the numerous footnotes. Hopefully readers will leave this book with not only knowledge of various results, but also with an understanding of the context in which some of these results were proved. 
+
+Of course, mere knowledge of results and history is not enough to excel in mathematics at any level; one must practice techniques. In this book, at the end of every chapter, are a select number of \textbf{exercises} meant to allow readers to test their understanding of the material, practice techniques - mostly of proof - shown in the chapter, and perhaps explore some extra material which could not find an appropriate place within the chapter itself. 
+
+There may not be quite as many questions as in some textbooks, but this is primarily because a great effort has been made into having as extensive an answers section as possible. There is never just one way to approach a problem, but the truly stumped reader can always turn to the back of the book to find at least one approach investigated.\footnote{Do not be too tempted to do this at the first sign of difficulty, though, for some problems are meant to be blankly stared at for a few hours.}
+
+Most of these solutions are the author's own, so there are likely several errors in the answers. It is to be hoped that most of these will be spotted and brought to the author's attention by readers, so that over time the answers section improves. 
+
+Finally, it should be noted that this text is best read in electronic form, where the extensive hyperlinking may be used to navigate the document. There are no major issues with reading this text on paper, it is just that one may have a better experience reading the pdf version.  For example, whenever we reference a theorem from another chapter - using the full format of \enquote{Theorem [Chapter].[Number]} - the reference is itself a link to the theorem, and one can easily navigate back to where they were using the links back to the table of contents at the top and bottom of every page. 

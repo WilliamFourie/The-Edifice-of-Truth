@@ -1,0 +1,46 @@
+\chapter{Relations, Orders, and Maps}
+\label{Chpt:_Relations_Orders_and_Maps}
+
+\section{Ordered Pairs and Product Sets}
+\label{--Sec:_Ordered_Pairs_and_Product_Sets}
+
+\begin{defn}
+\label{Defn:_Kuratowski_Ordered_Pair}
+Given sets $a, b$, we define the \textbf{(Kuratowski) ordered pair} $(a, b)$ to be the set $\{\{a\}, \{a, b\}\}$.\footnote{This definition was first given by \hyperref[KKuratowski]{Kazimierz Kuratowski} in 1921, but it is not the first definition of $(a, b)$ ever devised; \hyperref[NWiener]{N. Wiener} gave the first definition - namely letting $(a, b)$ be $\{\{\{a\}, \varnothing\}, \{\{b\}\}\}$ - in 1914. One may prove in the exercises that this definition satisfies \autoref{Thm:_Kuratowski_ordered_pair_is_ordered} and also prove that several other potential definitions do or do not. In the end, it is immaterial which definition we choose to use; Kuratowski's is preferred for its simplicity.}
+\end{defn}
+
+\begin{thm}
+\label{Thm:_Kuratowski_ordered_pair_is_ordered}
+For any $a, b, c, d$, we have that $(a, b) = (c, d)$ if and only if $a=c$ and $b=d$.
+\end{thm}
+
+\begin{prf}
+If $a = c$ and $b=d$ then of course $(a, b)=(c, d)$; it is the converse statement which is interesting.
+
+If $(a, b) = \{\{a\}, \{a, b\}\} = \{\{c\}, \{c, d\}\} = (c, d)$, then either $\{a\} = \{c\}$ or $\{a\}=\{c, d\}$.
+
+If $\{a\} = \{c, d\}$, then $a=c=d$, so $b=c=d=a$.
+
+If $\{a\} = \{c\}$, then $a=c$ and also either $\{a, b\}=\{c\}$ or $\{a, b\}=\{c, d\}$. In the first case, we have $a=b=c=d$. In the second, either $b=c=a=d$ or $b=d$.
+
+Thus, in all cases, $a=c$ and $b=d$, as was to be shown.
+\end{prf}
+
+\begin{defn}
+\label{Defn:_Components_of_ordered_pairs}
+Given an ordered pair $(a,b)$, we call $a$ the \textbf{first (or left) component} of the pair, and call $b$ the \textbf{second (or right) component}. This is well defined by \autoref{Thm:_Kuratowski_ordered_pair_is_ordered}.
+\end{defn}
+
+\begin{thm}
+\label{Thm:_Product_Sets_Exist}
+Given any two sets $A, B$, their exists a set whose members are precisely all the ordered pairs with first component from $A$ and second component from $B$. 
+\end{thm}
+
+\begin{prf}
+We can use the Axiom Schema of Separation to obtain the set $P = \{(a, b)\in\mathcal{P}\mathcal{P}(A\cup B)\mid (a\in A)\land (b\in B)\}$. For all $a\in A$, for all $b\in B$, we have that $(a, b)\in \mathcal{P}\mathcal{P}(A\cup B)$, so this $P$ is our desired set.
+\end{prf}
+
+\begin{defn}
+\label{Defn:_Product_Sets}
+Given sets $A, B$, we define their \textbf{Cartesian Product}\footnote{Named after \hyperref[RDescartes]{Ren\'{e} Descartes.}} $A\times B$ to be the set of all ordered pairs $(a, b)$, where $a\in A$ and $b\in B$.
+\end{defn}
